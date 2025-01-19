@@ -74,16 +74,24 @@
                                             <td>{{ $car->model }}</td>
                                             <td>{{ $car->plate_number }}</td>
                                             <td>Rp {{ number_format($car->rental_rate_per_day, 0, ',', '.') }}</td>
-                                            <td>{{ $car->is_available ? 'Tersedia' : 'Tidak Tersedia' }}</td>
+                                            <td>
+                                                <span class="{{ $car->is_available ? 'text-success' : 'text-danger' }}">
+                                                    {{ $car->is_available ? 'Tersedia' : 'Tidak Tersedia' }}
+                                                </span>
+                                            </td>
                                             <td>
                                                 @if (auth()->check() && auth()->id() === $car->user_id)
-                                                    <a href="mobil/{{ $car->id }}/edit" class="btn btn-info btn-sm">Edit</a>
-                                                    {{-- <button class="btn btn-warning btn-sm edit-button" data-id="{{ $car->id }}">Edit</button> --}}
-                                                    <button class="btn btn-danger btn-sm delete-button" data-id="{{ $car->id }}">Hapus</button>    
+                                                    <a href="{{ url('mobil/' . $car->id . '/edit') }}" class="btn btn-info btn-sm">Edit</a>
+                                                    <button 
+                                                        class="btn btn-danger btn-sm delete-button" 
+                                                        data-id="{{ $car->id }}" 
+                                                        data-is_available="{{ $car->is_available }}">
+                                                        Hapus
+                                                    </button>
                                                 @else
                                                     <button class="btn btn-secondary btn-sm" disabled>Edit</button>
                                                     <button class="btn btn-secondary btn-sm" disabled>Hapus</button>
-                                                @endif                                            
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -194,7 +202,7 @@
             // Check if the car is available
             if (isAvailable == 0) {
                 Swal.fire('Tidak Tersedia', 'Mobil tidak dapat dihapus karena tidak tersedia.', 'warning');
-                return; // Exit the function if car is not available
+                return; 
             }
 
             // Proceed with deletion confirmation if car is available

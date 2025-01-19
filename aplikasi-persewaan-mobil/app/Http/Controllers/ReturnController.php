@@ -38,7 +38,7 @@ class ReturnController extends Controller
         $startDate = strtotime($rental->start_date);
         $endDate = strtotime($rental->end_date);
         $returnedAt = now();
-        $daysUsed = max((strtotime($returnedAt) - $startDate) / 86400 + 1, 1);
+        $daysUsed = ceil((strtotime($returnedAt) - $startDate) / 86400);;
 
         // Hitung biaya total berdasarkan tarif harian
         $totalCost = $daysUsed * $rental->car->rental_rate_per_day;

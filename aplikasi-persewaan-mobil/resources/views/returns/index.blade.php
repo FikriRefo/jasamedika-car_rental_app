@@ -51,7 +51,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $return->rental->car->brand }} {{ $return->rental->car->model }}</td>
-                                        <td>{{ $return->rental->car->license_plate }}</td>
+                                        <td>{{ $return->rental->car->plate_number }}</td>
                                         <td>{{ $return->returned_at }}</td>
                                         <td>{{ $return->days_used }} hari</td>
                                         <td>Rp {{ number_format($return->total_cost, 0, ',', '.') }}</td>
